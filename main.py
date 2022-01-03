@@ -10,7 +10,7 @@ def save():
     user = username_txt.get()
     password = password_txt.get()
 
-    if website != "" and user != "" and password != "":
+    if len(website) == 0 or len(user) == 0 or len(password) == 0:
         is_ok = messagebox.askokcancel(title=website, message=f"Details Entered:\n\tUser: {user}\n\tPassword:{password}"
                                                               f"\n\nIs this ok to save?")
 
