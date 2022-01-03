@@ -9,21 +9,10 @@ def generate_pass():
     numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
 
-    print("Welcome to the PyPassword Generator!")
-    nr_letters = random.randint(8, 10)
-    nr_symbols = random.randint(2, 4)
-    nr_numbers = random.randint(2, 4)
-
-    pw = []
-
-    for char in range(nr_letters):
-        pw.append(random.choice(letters))
-
-    for num in range(nr_numbers):
-        pw.append(random.choice(numbers))
-
-    for symbol in range(nr_symbols):
-        pw.append(random.choice(symbols))
+    pw_letters = [random.choice(letters) for _ in range(random.randint(8, 10))]
+    pw_symbols = [random.choice(symbols) for _ in range(random.randint(2, 4))]
+    pw_numbers = [random.choice(numbers) for _ in range(random.randint(2, 4))]
+    pw = pw_letters + pw_symbols + pw_numbers
 
     random.shuffle(pw)
     result = ''.join(pw)
