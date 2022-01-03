@@ -1,8 +1,34 @@
 from tkinter import *
 from tkinter import messagebox
+import random
 
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
+def generate_pass():
+    letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+
+    print("Welcome to the PyPassword Generator!")
+    nr_letters = random.randint(8, 10)
+    nr_symbols = random.randint(2, 4)
+    nr_numbers = random.randint(2, 4)
+
+    pw = []
+
+    for char in range(nr_letters):
+        pw.append(random.choice(letters))
+
+    for num in range(nr_numbers):
+        pw.append(random.choice(numbers))
+
+    for symbol in range(nr_symbols):
+        pw.append(random.choice(symbols))
+
+    random.shuffle(pw)
+    result = ''.join(pw)
+    password_txt.insert(0, result)
+
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def save():
@@ -11,17 +37,16 @@ def save():
     password = password_txt.get()
 
     if len(website) == 0 or len(user) == 0 or len(password) == 0:
+        messagebox.showerror(title="Oops", message="Please don't leave any fields empty!")
+    else:
         is_ok = messagebox.askokcancel(title=website, message=f"Details Entered:\n\tUser: {user}\n\tPassword:{password}"
                                                               f"\n\nIs this ok to save?")
-
         if is_ok:
             with open("./data.txt", "a") as file:
                 file.write(f"{website} | {user} | {password}\n")
             website_txt.delete(0, END)
             username_txt.delete(0, END)
             password_txt.delete(0, END)
-    else:
-        messagebox.showerror(title="Oops", message="Please don't leave any fields empty!")
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -51,7 +76,7 @@ password_lbl.grid(column=0, row=3)
 password_txt = Entry(width=35)
 password_txt.grid(column=1, row=3)
 
-generate_pass_btn = Button(text="Generate Password")
+generate_pass_btn = Button(text="Generate Password", command=generate_pass)
 generate_pass_btn.grid(column=2, row=3)
 
 add_btn = Button(text="Add", width=46, command=save)
